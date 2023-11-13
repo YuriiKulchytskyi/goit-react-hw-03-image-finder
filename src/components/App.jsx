@@ -1,3 +1,6 @@
+// Потребую вашої допомоги з цим завданням, не дуже розумію як застилізувати компоненти і App
+
+
 import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
