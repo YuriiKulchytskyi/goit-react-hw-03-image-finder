@@ -1,8 +1,11 @@
-import {Loader} from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import {Oval} from 'react-loader-spinner';
 
-const Spinner = () => (
-  <Loader type="Oval" color="#00BFFF" height={50} width={50} timeout={3000} />
-);
+const CustomLoader = () => {
+  return (
+    <div className="Loader-container">
+      <Oval type="Oval" color="#00BFFF" height={80} width={80} />
+    </div>
+  );
+};
 
-export default Spinner
+export default CustomLoader;

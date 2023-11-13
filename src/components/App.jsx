@@ -1,14 +1,11 @@
-// Потребую вашої допомоги з цим завданням, не дуже розумію як застилізувати компоненти і App
-
-
 import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
-// import Loader from './Loader/Loader';
+import Oval from './Loader/Loader';
 import Modal from './Modal/Modal';
 import { Component } from 'react';
-import './StyleApp/App.css'
+
 
 export class App extends Component {
   state = {
@@ -72,14 +69,14 @@ export class App extends Component {
         <Searchbar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} onImageClick={this.handleImageClick} />
 
-        {/* {isLoading && <Loader />} */}
+        {isLoading && <Oval/>}
 
         {images.length > 0 && !isLoading && (
           <Button onClick={this.handleLoadMore} />
         )}
 
         {showModal && (
-          <Modal largeImageURL={largeImageURL} onClose={this.handleCloseModal} />
+          <Modal largeImageURL={largeImageURL} onClose={this.handleCloseModal}/>
         )}
       </div>
     );

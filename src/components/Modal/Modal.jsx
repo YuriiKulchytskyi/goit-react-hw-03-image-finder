@@ -24,8 +24,8 @@ const Modal = ({ largeImageURL, onClose }) => {
   };
 
   return (
-    <div className="overlay" onClick={handleOverlayClick}>
-      <div className="modal">
+    <div className="Overlay" onClick={handleOverlayClick}>
+      <div className="Modal">
         <img src={largeImageURL} alt="" />
       </div>
     </div>

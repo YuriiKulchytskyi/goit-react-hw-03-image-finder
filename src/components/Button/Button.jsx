@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import './Button.css';
 
 const Button = ({ onClick }) => (
-  <button type="button" className="load-more" onClick={onClick}>
-    Load more
-  </button>
+  <div className='Button-wrapper'>  <button type="button" className="Button" onClick={onClick}>
+  Load more
+</button></div>
 );
 
 Button.propTypes = {
