@@ -1,13 +1,12 @@
-import axios from 'axios';
+import React, {Component}  from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Oval from './Loader/Loader';
 import Modal from './Modal/Modal';
-import { Component } from 'react';
+import { fetchImages } from '../services/fetchImages';
 
-
-export class App extends Component {
+class App extends Component {
   state = {
     images: [],
     currentPage: 1,
@@ -23,27 +22,24 @@ export class App extends Component {
     }
   }
 
-  fetchImages = () => {
+  fetchImages = async () => {
     const { currentPage, searchQuery } = this.state;
-    const apiKey = '39406634-bdefc0ba04eb08cccc787049c';
-    const baseUrl = 'https://pixabay.com/api/';
-    const perPage = 12;
 
     this.setState({ isLoading: true });
 
-    axios
-      .get(
-        `${baseUrl}?q=${searchQuery}&page=${currentPage}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=${perPage}`
-      )
-      .then((response) => {
-        this.setState((prevState) => ({
-          images: [...prevState.images, ...response.data.hits],
-          currentPage: prevState.currentPage + 1,
-        }));
-      })
-      .catch((error) => console.error('Error fetching images:', error))
-      .finally(() => this.setState({ isLoading: false }));
+    try {
+      const newImages = await fetchImages(searchQuery, currentPage);
+      this.setState((prevState) => ({
+        images: [...prevState.images, ...newImages],
+        currentPage: prevState.currentPage + 1,
+      }));
+    } catch (error) {
+        console.error(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
   };
+
 
   handleSearchSubmit = (query) => {
     this.setState({ searchQuery: query, currentPage: 1, images: [] });
@@ -69,17 +65,19 @@ export class App extends Component {
         <Searchbar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} onImageClick={this.handleImageClick} />
 
-        {isLoading && <Oval/>}
+        {isLoading && <Oval />}
 
         {images.length > 0 && !isLoading && (
           <Button onClick={this.handleLoadMore} />
         )}
 
         {showModal && (
-          <Modal largeImageURL={largeImageURL} onClose={this.handleCloseModal}/>
+          <Modal largeImageURL={largeImageURL} onClose={this.handleCloseModal} />
         )}
       </div>
     );
   }
 }
 
+
+export default App
